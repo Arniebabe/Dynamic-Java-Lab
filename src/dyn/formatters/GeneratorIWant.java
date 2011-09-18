@@ -24,6 +24,7 @@ public class GeneratorIWant {
         try {
             ConstantPoolPatch patch = new ConstantPoolPatch(BasicFormatterTemplateIWant.class);
             HashMap<String, String> utf8Map = new HashMap<>();
+            utf8Map.put("RequestTemplate", "SampleDataObject");
             utf8Map.put("getDoubleProperty", "getValue");
 
             HashMap<String, Object> classMap = new HashMap<>();
@@ -32,7 +33,8 @@ public class GeneratorIWant {
             valueMap.put(DataObjectTemplate.class, SampleDataObject.class);
 
             patch.putPatches(utf8Map, classMap, valueMap, true);
-
+            System.out.println("patches = " + patch);
+            
             Class clazz = new AnonymousClassLoader(GeneratorIWant.class).loadClass(patch);
             MethodType desc1 = MethodType.methodType(void.class);
             MethodHandle mh1 = MethodHandles.lookup().findConstructor(clazz, desc1);
